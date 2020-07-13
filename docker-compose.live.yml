@@ -34,7 +34,15 @@ services:
             - grafana-data:/var/lib/grafana
         expose:
             - "3000"
-        ports:
-            - "8080:3000"
         env_file:
             - ./deploy/grafana.live.env
+    balancer:
+        build:
+            context: infra/nginx/.
+        restart: on-failure
+        networks:
+            - btm
+        ports:
+            - "80:80"
+        expose:
+            - "80"
