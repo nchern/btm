@@ -5,7 +5,6 @@ OUT=bin/$(NAME)
 
 .PHONY: install-deps
 install-deps:
-	# TODO: use dependency management system
 	@go get -d ./...
 
 .PHONY: lint
