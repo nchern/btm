@@ -12,7 +12,7 @@ import (
 const (
 	srcURL = "https://storage.googleapis.com/samofly/track/index.html"
 
-	waitTimeout = 5 * time.Minute
+	waitTimeout = 1 * time.Minute
 )
 
 func fetch() (io.ReadCloser, error) {
@@ -33,11 +33,11 @@ func do() error {
 		return err
 	}
 
-	//events, err := parseEventsFromHTML(os.Stdin)
 	events, err := parseEventsFromHTML(r)
 	if err != nil {
 		return err
 	}
+	defer r.Close()
 
 	log.Println("events_count: ", len(events))
 
