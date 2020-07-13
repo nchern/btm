@@ -1,0 +1,36 @@
+version: "3"
+
+networks:
+    btm:
+        driver: bridge
+
+volumes:
+    influxdb-data:
+    grafana-data:
+
+services:
+    influxdb:
+        image: influxdb:1.8-alpine
+        restart: on-failure
+        volumes:
+            - influxdb-data:/var/lib/influxdb
+        networks:
+            - btm
+        ports:
+            - "8086:8086"
+        environment:
+            INFLUXDB_DB: "telemetry"
+    grafana:
+        image: grafana/grafana
+        restart: on-failure
+        networks:
+            - btm
+        ports:
+            - "3000:3000"
+        expose:
+            - "3000"
+        volumes:
+            - grafana-data:/var/lib/grafana
+        environment:
+            GF_SERVER_ROOT_URL: "http://localhost"
+            GF_SECURITY_ADMIN_PASSWORD: "123"

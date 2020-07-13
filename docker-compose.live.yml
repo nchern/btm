@@ -1,0 +1,40 @@
+version: "3"
+
+networks:
+    btm:
+        driver: bridge
+
+volumes:
+    influxdb-data:
+    grafana-data:
+
+services:
+    btm:
+        image: btm
+        restart: on-failure
+        networks:
+            - btm
+    influxdb:
+        image: influxdb:1.8-alpine
+        restart: on-failure
+        volumes:
+            - influxdb-data:/var/lib/influxdb
+        networks:
+            - btm
+        expose:
+            - "8086"
+        environment:
+            INFLUXDB_DB: "telemetry"
+    grafana:
+        image: grafana/grafana
+        restart: on-failure
+        networks:
+            - btm
+        volumes:
+            - grafana-data:/var/lib/grafana
+        expose:
+            - "3000"
+        ports:
+            - "8080:3000"
+        env_file:
+            - ./deploy/grafana.live.env
