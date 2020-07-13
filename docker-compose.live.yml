@@ -46,8 +46,10 @@ services:
             - btm
         ports:
             - "80:8080"
+            - "443:443"
         expose:
             - "80"
+            - "443"
         depends_on:
             - grafana
         volumes:
