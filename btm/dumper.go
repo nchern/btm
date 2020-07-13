@@ -31,12 +31,12 @@ func save(points [][]interface{}) error {
 
 	for _, point := range points {
 		e := newEvent(point)
-		firstEvent := newEvent(points[0])
+		start := newEvent(points[0])
 
 		fields := e.toFields()
 
-		fields["total_distance"] = getDistance(e.latitude(), e.longitude(), 2.35, -155)
-		fields["covered_distance"] = getDistance(firstEvent.latitude(), firstEvent.longitude(), e.latitude(), e.longitude())
+		fields["total_distance"] = getDistance(start.latitude(), start.longitude(), 2.35, -155)
+		fields["covered_distance"] = getDistance(start.latitude(), start.longitude(), e.latitude(), e.longitude())
 
 		tags := map[string]string{}
 
