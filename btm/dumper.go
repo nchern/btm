@@ -13,6 +13,10 @@ const (
 )
 
 func save(points [][]interface{}) error {
+	if len(points) < 1 {
+		return nil
+	}
+
 	c, err := client.NewHTTPClient(client.HTTPConfig{
 		Addr: addr,
 	})
@@ -29,13 +33,13 @@ func save(points [][]interface{}) error {
 		return err
 	}
 
+	start := newEvent(points[0])
 	for _, point := range points {
 		e := newEvent(point)
-		start := newEvent(points[0])
 
 		fields := e.toFields()
 
-		fields["total_distance"] = getDistance(start.latitude(), start.longitude(), 2.35, -155)
+		fields["total_distance"] = getDistance(start.latitude(), start.longitude(), 20.35, -155)
 		fields["covered_distance"] = getDistance(start.latitude(), start.longitude(), e.latitude(), e.longitude())
 
 		tags := map[string]string{}
