@@ -4,7 +4,7 @@ func (e *event) toFields() map[string]interface{} {
 	return map[string]interface{}{
 		"date":                   e.raw[0],
 		"device":                 e.raw[1],
-		"direction.":             e.raw[2],
+		"direction":              e.raw[2],
 		"hex":                    e.raw[3],
 		"iridium_lat;":           e.raw[4],
 		"iridium_long;":          e.raw[5],
