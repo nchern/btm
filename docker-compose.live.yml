@@ -14,8 +14,8 @@ services:
         restart: on-failure
         networks:
             - btm
-         depends_on:
-           - influxdb
+        depends_on:
+            - influxdb
     influxdb:
         image: influxdb:1.8-alpine
         restart: on-failure
@@ -50,3 +50,5 @@ services:
             - "80"
         depends_on:
             - grafana
+        volumes:
+            - /btm/ssl:/var/ssl
