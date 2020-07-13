@@ -48,7 +48,7 @@ func main() {
 	if err := do(); err != nil {
 		log.Printf("ERROR %s", err)
 	}
-	for _ = range time.NewTicker(waitTimeout).C {
+	for range time.NewTicker(waitTimeout).C {
 		if err := do(); err != nil {
 			log.Printf("ERROR %s", err)
 		}
