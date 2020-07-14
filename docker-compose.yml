@@ -34,3 +34,4 @@ services:
         environment:
             GF_SERVER_ROOT_URL: "http://localhost"
             GF_SECURITY_ADMIN_PASSWORD: "123"
+            GF_INSTALL_PLUGINS: "pr0ps-trackmap-panel"

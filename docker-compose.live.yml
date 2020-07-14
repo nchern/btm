@@ -36,6 +36,8 @@ services:
             - grafana-data:/var/lib/grafana
         expose:
             - "3000"
+        environment:
+            GF_INSTALL_PLUGINS: "pr0ps-trackmap-panel"
         env_file:
             - ./deploy/grafana.live.env
     balancer:
