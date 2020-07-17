@@ -34,6 +34,8 @@ func save(points [][]interface{}) error {
 	}
 
 	start := newEvent(points[0])
+	prev := start
+	eigenDist := .0
 	for _, point := range points {
 		e := newEvent(point)
 
@@ -41,6 +43,9 @@ func save(points [][]interface{}) error {
 
 		fields["total_distance"] = getDistance(start.latitude(), start.longitude(), 20.35, -155)
 		fields["covered_distance"] = getDistance(start.latitude(), start.longitude(), e.latitude(), e.longitude())
+
+		eigenDist += getDistance(e.latitude(), e.longitude(), prev.latitude(), prev.longitude())
+		fields["eigen_distance"] = eigenDist
 
 		tags := map[string]string{}
 
@@ -54,6 +59,8 @@ func save(points [][]interface{}) error {
 			return err
 		}
 		bp.AddPoint(pt)
+
+		prev = e
 	}
 
 	return c.Write(bp)
